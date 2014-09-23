@@ -2168,14 +2168,10 @@ function! s:YRWindowStatus(show_help)
         exec yr_win_bufnr . "wincmd w"
     endif
 
-    let msg = 'AutoClose='.g:yankring_window_auto_close.
-                \ ';ClipboardMonitor='.g:yankring_clipboard_monitor.
-                \ ';Inserts='.g:yankring_record_insert.
-                \ ';Cmds:<enter>,[g]p,[g]P,1-9,d,r,s,a,c,i,u,R,q,<space>;Help=?'.
-                \ (s:yr_search==""?"":';SearchRegEx='.s:yr_search)
+    let msg = ''
 
     if s:yr_has_voperator == 0
-        let msg = msg . "\nYankRing has limited functionality without Vim 7.2 or higher"
+        let msg = msg . "YankRing has limited functionality without Vim 7.2 or higher"
     endif
 
     " Toggle help by checking the first line of the buffer
@@ -2418,11 +2414,10 @@ function! s:YRWindowOpen(results)
     silent! exec '%delete _'
 
     " Display the status line / help
-    call s:YRWindowStatus(0)
     exec 'normal! G'
 
     " Display the contents of the yankring
-    silent! put =a:results
+    silent! 0put =a:results
 
     if getline('$') == ''
         " Erase last blank line
